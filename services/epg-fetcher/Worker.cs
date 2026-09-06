@@ -6,7 +6,10 @@ public class Worker(ILogger<Worker> logger, IHttpClientFactory httpClientFactory
     {
         var client = httpClientFactory.CreateClient();
         
-        var response = await client.GetAsync("https://www.ziggosport.nl/cache/site/ZiggosportNL/json/epg/epg-2026-09-06.json", stoppingToken);
+        var date = DateTime.Now.ToString("yyyy-MM-dd");
+        var url = $"https://www.ziggosport.nl/cache/site/ZiggosportNL/json/epg/epg-{date}.json";
+        
+        var response = await client.GetAsync(url, stoppingToken);
         
         var content = await response.Content.ReadAsStringAsync(stoppingToken);
         
