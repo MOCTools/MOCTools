@@ -1,2 +1,6 @@
 <Solution>
+  <Folder Name="/services/" />
+  <Folder Name="/services/epg-fetcher/">
+    <Project Path="services/epg-fetcher/EpgFetcher.csproj" />
+  </Folder>
 </Solution>
