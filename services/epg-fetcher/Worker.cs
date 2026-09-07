@@ -4,10 +4,23 @@ public class Worker(ILogger<Worker> logger, IHttpClientFactory httpClientFactory
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var client = httpClientFactory.CreateClient();
+        var timeZone =
+            TimeZoneInfo.FindSystemTimeZoneById("Europe/Amsterdam");
+
+        var now = TimeZoneInfo.ConvertTime(
+            DateTimeOffset.UtcNow,
+            timeZone);
+
+        var date = now.ToString("yyyy-MM-dd");
         
-        var date = DateTime.Now.ToString("yyyy-MM-dd");
-        var url = $"https://www.ziggosport.nl/cache/site/ZiggosportNL/json/epg/epg-{date}.json";
+        var urlTemplate =
+            Environment.GetEnvironmentVariable("EPG_URL_TEMPLATE")
+            ?? throw new InvalidOperationException(
+                "EPG_URL_TEMPLATE is not configured.");
+
+        var url = urlTemplate.Replace("{date}", date);
+        
+        var client = httpClientFactory.CreateClient();
         
         var response = await client.GetAsync(url, stoppingToken);
         
