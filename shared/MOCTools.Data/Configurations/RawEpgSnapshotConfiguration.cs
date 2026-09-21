@@ -37,7 +37,6 @@ public sealed class RawEpgSnapshotConfiguration
             .IsRequired();
 
         builder.HasIndex(x => new { x.EpgDate, x.Sha256 })
-            .IsUnique()
             .HasDatabaseName("ux_raw_epg_snapshots_epg_date_sha256");
 
         builder.HasIndex(x => new { x.EpgDate, x.FetchedAtUtc })
