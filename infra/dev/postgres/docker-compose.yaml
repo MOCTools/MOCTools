@@ -22,5 +22,29 @@ services:
 
     restart: unless-stopped
 
+  epg-fetcher:
+    build:
+      context: ../../..
+      dockerfile: services/epg-fetcher/Dockerfile
+
+    container_name: moctools-epg-fetcher-dev
+
+    env_file:
+      - ../../../services/epg-fetcher/.env
+
+    environment:
+      MOCTOOLS_DB_CONNECTION_STRING: >-
+        Host=postgres;
+        Port=5432;
+        Database=${POSTGRES_DB};
+        Username=${POSTGRES_USER};
+        Password=${POSTGRES_PASSWORD}
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    restart: unless-stopped
+
 volumes:
   postgres-data:
