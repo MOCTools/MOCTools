@@ -6,6 +6,7 @@
 # dotenv files
 .env
 **/.env
+infra/dev/postgres/.env
 
 # User-specific files
 *.rsuser

@@ -3,4 +3,7 @@
   <Folder Name="/services/epg-fetcher/">
     <Project Path="services/epg-fetcher/EpgFetcher.csproj" />
   </Folder>
+  <Folder Name="/shared/">
+    <Project Path="shared/MOCTools.Data/MOCTools.Data.csproj" />
+  </Folder>
 </Solution>
